@@ -37,12 +37,17 @@ export class AppComponent implements OnInit {
         const chart = c3.generate({
             bindto: '#chart',
             data: {
-                columns: [
-                    [data[0].nombre, data[0].precio],
-                    [data[1].nombre, data[1].precio],
-                    [data[2].nombre, data[2].precio]
-                ],
+                json: data,
+                keys: {
+                    x: 'nombre', // it's possible to specify 'x' when category axis
+                    value: ['precio'],
+                },
                 type: 'bar'
+            },
+            axis: {
+                x: {
+                    type: 'category'
+                }
             },
             bar: {
                 width: {
