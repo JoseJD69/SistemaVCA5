@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonService} from './common.service';
+import * as d3 from 'd3';
+import * as c3 from 'c3';
+import {JsonFormatter} from 'tslint/lib/formatters';
 
 @Component({
     selector: 'app-root',
@@ -12,12 +15,41 @@ export class AppComponent implements OnInit {
     constructor(private newService: CommonService) {
     }
 
+    data = [{letter: 'A', frequency: .08167},
+        {letter: 'B', frequency: .01492},
+        {letter: 'C', frequency: .02782},
+        {letter: 'D', frequency: .04253},
+        {letter: 'E', frequency: .12702}];
     Repdata;
     valbutton = 'Save';
+    ids = [];
 
 
     ngOnInit() {
-        this.newService.GetProducto().subscribe(data => this.Repdata = data);
+        this.newService.GetProducto().subscribe(data => {
+            this.Repdata = data;
+            this.createbarC3(data);
+        });
+    }
+
+    createbarC3(data) {
+
+        const chart = c3.generate({
+            bindto: '#chart',
+            data: {
+                columns: [
+                    [data[0].nombre, data[0].precio],
+                    [data[1].nombre, data[1].precio],
+                    [data[2].nombre, data[2].precio]
+                ],
+                type: 'bar'
+            },
+            bar: {
+                width: {
+                    ratio: 0.5 // this makes bar width 50% of length between ticks
+                }
+            }
+        });
     }
 
     onSave = function (producto, isValid: boolean) {
