@@ -1,46 +1,18 @@
+<!--<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans" rel="stylesheet">-->
+<h1>Visualización de Variables Climáticas</h1>
 
-<div id="chart"></div>
 
-<form #productoForm="ngForm"   (ngSubmit)="onSave(productoForm.value)" novalidate>
-  <p>Is "myForm" valid? {{productoForm.valid}}</p>
-  <table border='1'>
-    <tr>
-      <td>name</td>
-      <td>
-        <input name="id" type="hidden"     [(ngModel)]="id" />
-        <input name="nombre" type="text"  required  [(ngModel)]="nombre" />
 
-      </td>
-    </tr>
+<div class="row">
+    <div class="col-9">
+        <div id="chart"></div>
+    </div>
+    <div class="col-2">
+    <input type="checkbox" id="cbox1" value="school_latitude" (click)="onChangeVal($event)"> <label for="cbox2">Este es mi 1 checkbox</label><br>
+    <input type="checkbox" id="cbox2" value="total_price_excluding_optional_support" (click)="onChangeVal($event)"> <label for="cbox2">Este es mi 2 checkbox</label><br>
+    <input type="checkbox" id="cbox3" value=""> <label for="cbox2">Este es mi 3 checkbox</label><br>
+    <input type="checkbox" id="cbox4" value=""> <label for="cbox2">Este es mi 4 checkbox</label><br>
+    </div>
 
-    <tr>
-      <td>address</td>
-      <td>    <input name="precio" required  type="text"   [(ngModel)]="precio" /></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="{{valbutton}}" />
-      </td>
+</div>
 
-    </tr>
-  </table>
-</form>
-
-<table border='1'>
-
-  <tr>
-    <td>Id</td>
-    <td>Nombre</td>
-    <td>Precio</td>
-    <td>Edit</td>
-    <td>Delete</td>
-  </tr>
-  <tr *ngFor="let product of Repdata;let ind = index">
-
-    <td>{{ind + 1}}</td>
-    <td>{{product.nombre}}</td>
-    <td>{{product.precio}}</td>
-    <td><a (click)="edit(product)" style="color:blueviolet">Edit</a></td>
-    <td><a (click)="delete(product._id)" style="color:blueviolet">Delete</a>  </td>
-  </tr>
-</table>

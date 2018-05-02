@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+@import '~c3/c3.css';
+.right {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
+    background-color: aqua;
+    float: right;
+    padding: 20px;
+}
+
+.left {
+    float: left;
+    padding-right: 20%;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Alegreya Sans;
+    font-size: 40px;
+}
+#chart {
+
+}
