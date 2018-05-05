@@ -3,7 +3,7 @@ var path = require("path");
 var bodyParser = require('body-parser');
 var mongo = require("mongoose");
 
-var db = mongo.connect("mongodb://localhost:27017/donorschoose", function (err, response) {
+var db = mongo.connect("mongodb://localhost:27017/test", function (err, response) {
     if (err) {
         console.log(err);
     }
@@ -29,18 +29,21 @@ app.use(function (req, res, next) {
 
 var Schema = mongo.Schema;
 
-var ProductosSchema = new Schema({
-	_projectid: {type: Number},
-    school_latitude: {type: Number},
-    school_longitude: {type: Number},
-    school_city: {type: String},
-    school_state: {type: String},
-    school_metro: {type: String},
-    total_donations: {type: Number}
+var VariablesSchema = new Schema({
+	_id: {type: Number},
+    Date: {type: String},
+    Time: {type: String},
+    tempOut: {type: Number},
+    hiTemp: {type: Number},
+    lowTemp: {type: Number},
+    outHum: {type: Number},
+	windSpeed: {type: Number},
+	windDir:{type: String},
+	SolarRad:{type: Number},
 }, {versionKey: false});
 
 
-var model = mongo.model('projects', ProductosSchema, 'projects');
+var model = mongo.model('variablesClimaticas', VariablesSchema, 'variablesClimaticas');
 
 app.post("/api/SaveProducto", function (req, res) {
     var mod = new model(req.body);
@@ -79,7 +82,7 @@ app.post("/api/deleteProducto", function (req, res) {
 })
 
 
-app.get("/api/getProducto", function (req, res) {
+app.get("/api/getVariables", function (req, res) {
 		
     model.find({}, function (err, data) {
         if (err) {
@@ -88,7 +91,7 @@ app.get("/api/getProducto", function (req, res) {
         else {
             res.send(data);
         }
-    }).limit(400);
+    }).limit(800);
 })
 
 

@@ -2,23 +2,33 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
 @import '~c3/c3.css';
 .right {
-    border-radius: 10px 10px 10px 10px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    border: 0px solid #000000;
-    background-color: aqua;
-    float: right;
-    padding: 20px;
+    display: block;
+    background-color: rgba(250, 250, 250, 0.3);
+}
+#chart{
+    background-color: rgba(250, 250, 250, 0.3);
 }
 
 .left {
     float: left;
     padding-right: 20%;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4 {
     font-family: Alegreya Sans;
-    font-size: 40px;
+    font-size: 35px;
+    color: cornsilk;
 }
+h5, h6
+{
+    font-family: Alegreya Sans;
+    font-size: 23px;
+    color: cornsilk;
+}
+label
+{
+    color: cornsilk;
+}
+
 #chart {
 
 }
