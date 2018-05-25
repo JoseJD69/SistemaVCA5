@@ -1,0 +1,315 @@
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f98"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f99"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f9a"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f9b"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f9c"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f9d"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe6fee1103eccd06f9e"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06f9f"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("25")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06fa0"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06fa1"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06fa2"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06fa3"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe7fee1103eccd06fa4"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe8fee1103eccd06fa5"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe8fee1103eccd06fa6"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe8fee1103eccd06fa7"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe8fee1103eccd06fa8"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fe9fee1103eccd06fa9"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fe9fee1103eccd06faa"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569feafee1103eccd06fab"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569feafee1103eccd06fac"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569feafee1103eccd06fad"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569feafee1103eccd06fae"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06faf"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb0"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb1"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb2"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb3"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb4"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb5"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb6"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb7"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb8"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fb9"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569febfee1103eccd06fba"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fbb"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fbc"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fbd"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fbe"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fbf"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fecfee1103eccd06fc0"),
+	"Boton" : "down",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc1"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc2"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc3"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc4"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc5"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc6"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc7"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc8"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fc9"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fca"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fcb"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fcc"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fcd"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fce"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fcf"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569fedfee1103eccd06fd0"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd1"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd2"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd3"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd4"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd5"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("23")
+},
+{
+	"_id" : ObjectId("5a569feefee1103eccd06fd6"),
+	"Boton" : "up",
+	"temperaturaCelsius" : NumberInt("24")
+},

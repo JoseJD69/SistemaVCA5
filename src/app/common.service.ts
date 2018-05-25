@@ -21,7 +21,7 @@ export class CommonService {
     }
 
     GetProducto() {
-        return this.http.get('http://localhost:3000/api/getProducto/');
+        return this.http.get('http://localhost:3000/api/getVariables/');
     }
 
     deleteProducto(id) {

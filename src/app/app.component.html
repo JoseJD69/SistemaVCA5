@@ -1,43 +1,23 @@
-<form #productoForm="ngForm"   (ngSubmit)="onSave(productoForm.value)" novalidate>
-  <p>Is "myForm" valid? {{productoForm.valid}}</p>
-  <table border='1'>
-    <tr>
-      <td>name</td>
-      <td>
-        <input name="id" type="hidden"     [(ngModel)]="id" />
-        <input name="nombre" type="text"  required  [(ngModel)]="nombre" />
+<!--<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans" rel="stylesheet">-->
+<div class="col-12"> <h1>Visualización de Variables Climáticas</h1></div>
+<div class="row">
+    <div class="col-9">
+        <div id="chart"></div>
+    </div>
+    <div class="col-2 checkbox right">
+        <h5>Variables Climáticas</h5>
+        <input type="checkbox" id="cbox1" value="tempOut" (click)="onChangeVal($event)"> <label
+            for="cbox1">Temperatura Media</label><br>
+        <input type="checkbox" id="cbox2" value="hiTemp" (click)="onChangeVal($event)"> <label for="cbox2">Temperatura
+        Maxima</label><br>
+        <input type="checkbox" id="cbox3" value="lowTemp" (click)="onChangeVal($event)"> <label for="cbox3">Temperatura Minima</label><br>
+        <input type="checkbox" id="cbox4" value="outHum" (click)="onChangeVal($event)"> <label for="cbox4">Humedad Relativa</label><br>
+        <input type="checkbox" id="cbox5" value=""> <label for="cbox5">Precipitación</label><br>
+        <input type="checkbox" id="cbox6" value="windSpeed" (click)="onChangeVal($event)"> <label for="cbox6">Velocidad de viento</label><br>
+        <input type="checkbox" id="cbox7" value="windDir" (click)="onChangeVal($event)"> <label for="cbox7">Direccion del Viento</label><br>
+        <input type="checkbox" id="cbox8" value="SolarRad" (click)="onChangeVal($event)"> <label for="cbox8">Radiacion Solar</label><br>
+        <input type="checkbox" id="cbox9" value="uvIndex" (click)="onChangeVal($event)"> <label for="cbox9">Luz UV</label><br>
+    </div>
 
-      </td>
-    </tr>
+</div>
 
-    <tr>
-      <td>address</td>
-      <td>    <input name="precio" required  type="text"   [(ngModel)]="precio" /></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="submit" value="{{valbutton}}" />
-      </td>
-
-    </tr>
-  </table>
-</form>
-
-<table border='1'>
-
-  <tr>
-    <td>Id</td>
-    <td>Nombre</td>
-    <td>Precio</td>
-    <td>Edit</td>
-    <td>Delete</td>
-  </tr>
-  <tr *ngFor="let product of Repdata;let ind = index">
-
-    <td>{{ind + 1}}</td>
-    <td>{{product.nombre}}</td>
-    <td>{{product.precio}}</td>
-    <td><a (click)="edit(product)" style="color:blueviolet">Edit</a></td>
-    <td><a (click)="delete(product._id)" style="color:blueviolet">Delete</a>  </td>
-  </tr>
-</table>
