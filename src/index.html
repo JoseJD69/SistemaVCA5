@@ -1,14 +1,78 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>SistemaVCA5</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<meta charset="utf-8">
+<title>SistemaVCA5</title>
+<base href="/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="assets/datepicker/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="assets/datepicker/css/bootstrap-datepicker3.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+      integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
 </head>
 <body>
 <app-root></app-root>
-
 </body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="assets/datepicker/js/bootstrap-datepicker.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="assets/js/index.js"></script>
+<script type="text/javascript">
+    var startDate = new Date();
+    var fechaFin = new Date();
+    var FromEndDate = new Date();
+    var ToEndDate = new Date();
+
+
+    $('.datepicker').datepicker();
+     $('.datepickerM').datepicker( {
+         format: "mm/yy",
+         startView: 2,
+         minViewMode: 1,
+         maxViewMode: 2,
+         language: "es"
+     });
+     //datepicker({
+    //     autoclose: true,
+    //     viewMode: 'years',
+    //     format: 'mm/yy'
+    // }).on('changeDate', function(selected){
+    //     startDate = new Date(selected.date.valueOf());
+    //     startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+    //
+    // });
+    $('[data-toggle="tooltip"]').tooltip();
+
+    (function () {
+        var d = new Date().getDate();
+        var m = document.querySelectorAll("#contain_moon div");
+        var a = new XMLHttpRequest();
+        var url = "http://www.icalendar37.net/lunar/api/?lang=es&month=" + (new Date().getMonth() + 1) + "&year=" + (new Date().getFullYear()) + "&size=120&lightColor=rgb(255,255,255)&shadeColor=rgb(3,11,31)&t&LDZ=" + new Date(new Date().getFullYear(), new Date().getMonth(), 1) / 1000 + "";
+        a.onreadystatechange = function () {
+            if (a.readyState == 4 && a.status == 200) {
+                var b = JSON.parse(a.responseText);
+                m[0].innerHTML = b.phase[d].svg;
+                if (typeof moon_widget_loaded == "function") moon_widget_loaded(b);
+                m[1].innerHTML = b.phase[d].npWidget
+            }
+        };
+        a.open("GET", url, true);
+        a.send()
+    })()
+</script>
 </html>

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,6 +10,8 @@ export class CommonService {
 
     constructor(private http: HttpClient) {
     }
+
+    params = new HttpParams();
 
     saveProducto(producto) {
         return this.http.post('http://localhost:3000/api/SaveProducto/', {
@@ -22,6 +24,16 @@ export class CommonService {
 
     GetProducto() {
         return this.http.get('http://localhost:3000/api/getVariables/');
+    }
+
+    GetVariablesFechas() {
+        return this.http.get('http://localhost:3000/api/getVariablesFechas/', {});
+    }
+
+    GetVariablesProm(fecha) {
+        let httpParams = new HttpParams();
+        httpParams = httpParams.append('fecha', fecha);
+        return this.http.get('http://localhost:3000/api/getVariablesDia', {params: httpParams});
     }
 
     deleteProducto(id) {

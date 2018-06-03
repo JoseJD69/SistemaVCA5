@@ -1,23 +1,32 @@
-<!--<link href="https://fonts.googleapis.com/css?family=Alegreya+Sans" rel="stylesheet">-->
-<div class="col-12"> <h1>Visualización de Variables Climáticas</h1></div>
-<div class="row">
-    <div class="col-9">
-        <div id="chart"></div>
+<div class="container-fluid">
+    <div class="col-12"><h1>Dashboard</h1></div>
+    <div class="row">
+        <div class="col-sm-6 tempPadding">
+            <app-chart-temperature></app-chart-temperature>
+        </div>
+        <div class="col-sm-6">
+            <app-chart-humidity></app-chart-humidity>
+        </div>
     </div>
-    <div class="col-2 checkbox right">
-        <h5>Variables Climáticas</h5>
-        <input type="checkbox" id="cbox1" value="tempOut" (click)="onChangeVal($event)"> <label
-            for="cbox1">Temperatura Media</label><br>
-        <input type="checkbox" id="cbox2" value="hiTemp" (click)="onChangeVal($event)"> <label for="cbox2">Temperatura
-        Maxima</label><br>
-        <input type="checkbox" id="cbox3" value="lowTemp" (click)="onChangeVal($event)"> <label for="cbox3">Temperatura Minima</label><br>
-        <input type="checkbox" id="cbox4" value="outHum" (click)="onChangeVal($event)"> <label for="cbox4">Humedad Relativa</label><br>
-        <input type="checkbox" id="cbox5" value=""> <label for="cbox5">Precipitación</label><br>
-        <input type="checkbox" id="cbox6" value="windSpeed" (click)="onChangeVal($event)"> <label for="cbox6">Velocidad de viento</label><br>
-        <input type="checkbox" id="cbox7" value="windDir" (click)="onChangeVal($event)"> <label for="cbox7">Direccion del Viento</label><br>
-        <input type="checkbox" id="cbox8" value="SolarRad" (click)="onChangeVal($event)"> <label for="cbox8">Radiacion Solar</label><br>
-        <input type="checkbox" id="cbox9" value="uvIndex" (click)="onChangeVal($event)"> <label for="cbox9">Luz UV</label><br>
+    <div class="row">
+        <div class="col-sm-6 margenes">
+            <app-chart-solar-rad></app-chart-solar-rad>
+        </div>
+        <app-wind-rose></app-wind-rose>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 margenes">
+            <app-chart-rain></app-chart-rain>
+        </div>
+        <div class="col-sm-6 moonpadding">
+
+            <div class="col-sm-4 optionsMoon"><h5>Fase Lunar</h5></div>
+
+            <div id="contain_moon" class="moon col-sm-4">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     </div>
 
 </div>
-

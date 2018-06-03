@@ -1,0 +1,39 @@
+<div class="div_title col-sm-12"><h5>Radiacion Solar</h5></div>
+<div class="optionsTemp" style="height: 60px">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-sm-3">
+            <select name="Time" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
+                <option value="option">Seleccione</option>
+                <option value="Hoy">Hoy</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Anual">Anual</option>
+                <option value="Lapso de tiempo">Lapso de Tiempo</option>
+            </select>
+        </div>
+        <div class="col-sm-3" [hidden]="!EditFechaSR">
+
+            <input placeholder="Desde" data-toggle="tooltip" data-placement="top"
+                   title="Elija una fecha desde el año 2005 "
+                   data-date-format="dd/mm/yy"
+                   class="datepicker form-control"
+                   id="fechaIn">
+        </div>
+        <div class="col-sm-3" [hidden]="!EditFechaSR">
+            <input placeholder="Hasta" data-toggle="tooltip" data-placement="top"
+                   title="Elija una fecha hasta el año 2018 "
+                   data-date-format="dd/mm/yy"
+                   class="datepicker form-control "
+                   id="fechaFin">
+
+        </div>
+        <div class="col-sm-4" [hidden]="!EditMonthSR">
+            <input placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-sm">
+                <span class=""></span> Buscar
+            </button>
+        </div>
+    </div>
+</div>
+<div id="chartRadiacion"></div>
