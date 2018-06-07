@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonService} from '../common.service';
 import {Variables} from '../config/config';
 import {AppComponent} from '../app.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 import * as d3 from 'd3';
@@ -22,8 +23,12 @@ export class ChartTemperatureComponent implements OnInit {
     SelectTime: { [key: string]: any } = {
         option: '1'
     };
+    Fdia: any;
+    FMes: any;
     DataTemp;
     DataProm;
+    fechasIn = [];
+
     chart;
     TempGroup = [];
 
@@ -33,16 +38,20 @@ export class ChartTemperatureComponent implements OnInit {
 
 
     ngOnInit() {
-        this.newService.GetVariablesFechas().subscribe(data => {
-            this.DataTemp = data;
-            console.log(data);
-            // this.cargarFechas(data);
-            // this.createbarC3_Temperature(data, Variables.default);
-        });
         this.newServiceProm.GetVariablesProm('08/18').subscribe(data => {
             this.DataProm = data;
-            console.log(data);
+            this.cargarFechas(data);
             this.createbarC3_Temperature(data, Variables.default);
+        });
+    }
+
+    dataChanged(event) {
+        console.log(event);
+    }
+
+    cargarFechas(data) {
+        data.forEach((num, index) => {
+            this.fechasIn.push(data[index]['_id']);
         });
     }
 
@@ -50,9 +59,10 @@ export class ChartTemperatureComponent implements OnInit {
         this.chart = c3.generate({
             bindto: '#chartTemperature',
             data: {
+                // x: 'x',
                 json: data,
                 keys: {
-                    //  x: 'Time', // it's possible to specify 'x' when category axis
+                    // x : '_id', // it's possible to specify 'x' when category axis
                     value: variableC
                 }, types: {
                     lowTemp: 'area-spline',
@@ -67,7 +77,20 @@ export class ChartTemperatureComponent implements OnInit {
                         hiTemp: 'Temperatura Maxima'
                     }, type: 'spline'
 
-            }, axis: {},
+            }, axis: {
+                y: {
+                    label: 'Celsius'
+                }
+                /* x: {
+                     type: 'category',
+                     categories: this.fechasIn,
+                     tick: {
+                         rotate: 75,
+                         multiline: false
+                     },
+                     height: 80
+                 }*/
+            },
             tooltip: {
                 format: {
                     title: function (d) {
@@ -96,8 +119,30 @@ export class ChartTemperatureComponent implements OnInit {
     }
 
     onSelectTime() {
+        const option = this.SelectTime.option;
+        console.log(this.SelectTime.option);
+        console.log(this.Fdia);
+        console.log(this.FMes);
+        this.crearGrapics(option);
+    }
 
-        console.log(this.SelectTime);
+    crearGrapics(option) {
+        switch (option) {
+            case 'Dia':
+                this.newService.GetVariablesFechas(this.Fdia, option).subscribe(data => {
+                    this.DataProm = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_Temperature(data, Variables.default);
+                });
+                break;
+            case 'Mensual':
+                this.newService.GetVariablesFechas(this.FMes, option).subscribe(data => {
+                    this.DataProm = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_Temperature(data, Variables.default);
+                });
+                break;
+        }
     }
 
     SelectTimeCurrent(value) {
@@ -127,12 +172,6 @@ export class ChartTemperatureComponent implements OnInit {
         }
     }
 
-    Promedio_Dia(data) {
-        data.forEach((num, index) => {
-
-        });
-    }
-
     onChangeVal(ev) {
         let val;
         if (ev.currentTarget.checked) {
@@ -150,15 +189,15 @@ export class ChartTemperatureComponent implements OnInit {
         switch (val) {
             case 'tempOut':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
             case 'hiTemp':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
             case 'lowTemp':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
         }
     }
@@ -167,15 +206,15 @@ export class ChartTemperatureComponent implements OnInit {
         switch (val) {
             case 'tempOut':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
             case 'hiTemp':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
             case 'lowTemp':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataTemp, this.TempGroup);
+                this.createbarC3_Temperature(this.DataProm, this.TempGroup);
                 break;
         }
     }

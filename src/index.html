@@ -47,15 +47,7 @@
          maxViewMode: 2,
          language: "es"
      });
-     //datepicker({
-    //     autoclose: true,
-    //     viewMode: 'years',
-    //     format: 'mm/yy'
-    // }).on('changeDate', function(selected){
-    //     startDate = new Date(selected.date.valueOf());
-    //     startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
-    //
-    // });
+
     $('[data-toggle="tooltip"]').tooltip();
 
     (function () {
@@ -74,5 +66,11 @@
         a.open("GET", url, true);
         a.send()
     })()
+
+    $('.dropdown-submenu a.test').on("click", function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
 </script>
 </html>

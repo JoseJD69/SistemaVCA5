@@ -1,14 +1,14 @@
 
 .div_title
 {
-    background-color: white;
-    height: 35px;
-    box-shadow: 3px -3px 5px #999;
-    border-bottom: 1px solid #e7e7e7;
-    border-radius: 2px 2px 0 0;
-    font-size: 13px;
-    padding: 2px 10px 0;
-    text-transform: uppercase;
+    background-color: white !important;
+    height: 40px !important;
+    box-shadow: 3px -3px 5px #999 !important;
+    border-bottom: 1px solid #e7e7e7 !important;
+    border-radius: 2px 2px 0 0 !important;
+    font-size: 13px !important;
+    padding: 2px 10px 0 !important;
+    text-transform: uppercase !important;
 }
 #chartTemperature{
     background-color: white;

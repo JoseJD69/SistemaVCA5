@@ -26,8 +26,18 @@ export class CommonService {
         return this.http.get('http://localhost:3000/api/getVariables/');
     }
 
-    GetVariablesFechas() {
-        return this.http.get('http://localhost:3000/api/getVariablesFechas/', {});
+    GetVariablesFechas(fecha, tipo) {
+        let httpParams = new HttpParams();
+        httpParams = httpParams.append('fecha', fecha);
+        httpParams = httpParams.append('tipo', tipo);
+        return this.http.get('http://localhost:3000/api/getVariables/', {params: httpParams});
+    }
+    GetVariablesComponentes(fecha, tipo,variableC) {
+        let httpParams = new HttpParams();
+        httpParams = httpParams.append('fecha', fecha);
+        httpParams = httpParams.append('tipo', tipo);
+        httpParams = httpParams.append('variableC', variableC);
+        return this.http.get('http://localhost:3000/api/getVariablesComponentes/', {params: httpParams});
     }
 
     GetVariablesProm(fecha) {

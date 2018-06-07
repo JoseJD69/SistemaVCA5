@@ -32,13 +32,12 @@ export class AppComponent implements OnInit {
 
 
     ngOnInit() {
-        this.newService.GetVariablesFechas().subscribe(data => {
+      /*  this.newService.GetVariablesFechas().subscribe(data => {
             this.Repdata = data;
-
             this.cargarFechas(data);
             this.createbarC3_Humedad(data, this.varibledafaultHum);
             this.createbarC3_Rad(data, this.varibledafaultRad);
-        });
+        });*/
     }
 
     cargarFechas(data) {
@@ -46,18 +45,6 @@ export class AppComponent implements OnInit {
             this.fechasIn.push(data[index]['Date']);
         });
     }
-
-// probando recien
-    /* promedioFechaTemp(data) {
-         let suma = 0;
-         data.forEach((num, index) => {
-             if (data[index] ===) {
-                 suma += data[index]['tempOut'];
-             }
-         });
-         const promedio = (suma / data.length());
-     }*/
-
 
     createbarC3_Humedad(data, variableC) {
         this.chart = c3.generate({

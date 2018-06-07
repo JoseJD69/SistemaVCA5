@@ -2,9 +2,9 @@
 <div class="optionsTemp" style="height: 65px">
   <div class="row" style="margin-top: 10px;">
     <div class="col-sm-3">
-      <select name="Time" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
-        <option value="option">Seleccione</option>
-        <option value="Hoy">Hoy</option>
+      <select [(ngModel)]="SelectTime.option" name="Time" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
+        <option value="1" disabled="true">Seleccione</option>
+        <option value="Dia">Dia</option>
         <option value="Mensual">Mensual</option>
         <option value="Anual">Anual</option>
         <option value="Lapso de tiempo">Lapso de Tiempo</option>
@@ -26,11 +26,18 @@
              id="fechaFin">
 
     </div>
+    <div class="col-sm-3" [hidden]="!EditDiaP">
+      <input [(ngModel)]="Fdia" placeholder="Dia" data-toggle="tooltip" data-placement="top"
+             title="Elija una dia desde el año 2005"
+             data-date-format="dd/mm/yy"
+             class="datepicker form-control"
+             id="fechaDia">
+    </div>
     <div class="col-sm-4" [hidden]="!EditMonthP">
-      <input placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
+      <input [(ngModel)]="FMes" placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
     </div>
     <div>
-      <button type="button" class="btn btn-primary btn-sm">
+      <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
         <span class=""></span> Buscar
       </button>
     </div>

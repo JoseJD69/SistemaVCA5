@@ -7,33 +7,37 @@ import * as d3 from 'd3';
 import * as c3 from 'c3';
 
 
-
 @Component({
-  selector: 'app-chart-solar-rad',
-  templateUrl: './chart-solar-rad.component.html',
-  styleUrls: ['./chart-solar-rad.component.css']
+    selector: 'app-chart-solar-rad',
+    templateUrl: './chart-solar-rad.component.html',
+    styleUrls: ['./chart-solar-rad.component.css']
 })
 export class ChartSolarRadComponent implements OnInit {
-
 
     constructor(private newService: CommonService) {
     }
 
     public EditFechaSR = false;
     public EditMonthSR = false;
+    public EditDiaSR = false;
+    SelectTime: { [key: string]: any } = {
+        option: '1'
+    };
     DataTemp;
-    DataProm;
+    Fdia: any;
+    FMes: any;
     chart;
     TempGroup = [];
 
     ngOnInit() {
-        this.newService.GetVariablesFechas().subscribe(data => {
+        this.newService.GetVariablesComponentes('02/03/18', 'Dia', Variables.SolarRad).subscribe(data => {
             this.DataTemp = data;
             // this.cargarFechas(data);
             this.createbarC3_SolarRad(data, Variables.SolarRad);
         });
 
     }
+
     createbarC3_SolarRad(data, variableC) {
         this.chart = c3.generate({
             bindto: '#chartRadiacion',
@@ -53,7 +57,12 @@ export class ChartSolarRadComponent implements OnInit {
                         SolarRad: 'Radiacion',
                     }, type: 'spline'
 
-            }, axis: {},
+            }, axis: {
+                y:
+                {
+                    label:' W/m2'
+                }
+            },
             tooltip: {
                 format: {
                     title: function (d) {
@@ -77,34 +86,56 @@ export class ChartSolarRadComponent implements OnInit {
 
     }
 
-
-
     onChangeTime(value) {
-        const val = null;
         this.SelectTimeCurrent(value);
     }
 
+    onSelectTime() {
+        const option = this.SelectTime.option;
+        console.log(this.SelectTime.option);
+        console.log(this.Fdia);
+        console.log(this.FMes);
+        this.crearGrapics(option);
+    }
+    crearGrapics(option) {
+        switch (option) {
+            case 'Dia':
+                this.newService.GetVariablesComponentes(this.Fdia, option, Variables.SolarRad).subscribe(data => {
+                    this.DataTemp = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_SolarRad(data, Variables.SolarRad);
+                });
+                break;
+            case 'Mensual':
+                this.newService.GetVariablesComponentes(this.FMes, option, Variables.SolarRad).subscribe(data => {
+                    this.DataTemp = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_SolarRad(data, Variables.SolarRad);
+                });
+                break;
+        }
+    }
     SelectTimeCurrent(value) {
         switch (value) {
             case 'Lapso de tiempo':
                 this.EditFechaSR = true;
                 this.EditMonthSR = false;
-                console.log('lapso');
+                this.EditDiaSR = false;
                 break;
-            case 'Hoy':
-                console.log('hoy');
+            case 'Dia':
+                this.EditDiaSR = true;
                 this.EditFechaSR = false;
                 this.EditMonthSR = false;
                 break;
             case 'Mensual':
-                console.log('mensual');
                 this.EditFechaSR = false;
                 this.EditMonthSR = true;
+                this.EditDiaSR = false;
                 break;
             case 'Anual':
-                console.log('anual');
                 this.EditFechaSR = false;
                 this.EditMonthSR = false;
+                this.EditDiaSR = false;
                 break;
         }
     }

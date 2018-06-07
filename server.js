@@ -59,44 +59,7 @@ var VariablesSchema = new Schema({
 
 
 var model = mongo.model('variablesClimaticas', VariablesSchema, 'variablesClimaticas');
-
-app.post("/api/SaveProducto", function (req, res) {
-    var mod = new model(req.body);
-    if (req.body.mode == "Save") {
-        mod.save(function (err, data) {
-            if (err) {
-                res.send(err);
-            }
-            else {
-                res.send({data: "Record has been Inserted..!!"});
-            }
-        });
-    }
-    else {
-        model.findByIdAndUpdate(req.body.id, {nombre: req.body.nombre, precio: req.body.precio},
-            function (err, data) {
-                if (err) {
-                    res.send(err);
-                }
-                else {
-                    res.send({data: "Record has been Updated..!!"});
-                }
-            });
-    }
-})
-
-
-app.post("/api/deleteProducto", function (req, res) {
-    model.remove({_id: req.body.id}, function (err) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.send({data: "Record has been Deleted..!!"});
-        }
-    });
-})
-
+//entre fechas agregar
 
 app.get("/api/getVariablesFechas", function (req, res) {
 
@@ -109,11 +72,11 @@ app.get("/api/getVariablesFechas", function (req, res) {
         }
     });
 });
-
+//variables por dia
 app.get("/api/getVariablesDia", function (req, res) {
     var parts = url.parse(req.url, true);
     var query = parts.query;
-    console.log(req.query.fecha);
+
     model.aggregate([{$match: {Date: {$regex: '.*/03/18'}}}, {
         $group: {
             _id: '$Date',
@@ -129,27 +92,129 @@ app.get("/api/getVariablesDia", function (req, res) {
             lowTemp: round('$lowTempM', 2)
         }
     }, {"$sort": {"_id": 1}}]).then(function (data) {
-        console.log(data);
+
         res.send(data);
     });
 
 });
-
-
+//principal
 app.get("/api/getVariables", function (req, res) {
+    var parts = url.parse(req.url, true);
+    var query = parts.query;
+    var opcion = req.query.tipo;
 
-    model.find({}, function (err, data) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.send(data);
-        }
-    }).limit(800);
+    switch (opcion) {
+        case 'Dia':
+            model.find({Date: req.query.fecha}, function (err, data) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    res.send(data);
+                }
+            });
+            break;
+        case 'Mensual':
+            model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                $group: {
+                    _id: '$Date',
+                    tempOutM: {$avg: '$tempOut'},
+                    hiTempM: {$avg: '$hiTemp'},
+                    lowTempM: {$avg: '$lowTemp'}
+                }
+            }, {
+                $project: {
+
+                    tempOut: round('$tempOutM', 2),
+                    hiTemp: round('$hiTempM', 2),
+                    lowTemp: round('$lowTempM', 2)
+                }
+            }, {"$sort": {"_id": 1}}]).then(function (data) {
+                console.log(data);
+                res.send(data);
+            });
+            break;
+    }
+})
+
+//modificada
+app.get("/api/getVariablesComponentes", function (req, res) {
+    var parts = url.parse(req.url, true);
+    var query = parts.query;
+    var opcion = req.query.tipo;
+    var variableC = req.query.variableC;
+    console.log(variableC);
+    console.log(opcion);
+    console.log(req.query.fecha);
+    switch (opcion) {
+        case 'Dia':
+            model.find({Date: req.query.fecha}, function (err, data) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    res.send(data);
+                }
+            });
+            break;
+        case 'Mensual':
+            if(variableC=='Rain') {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        RainM: {$avg: '$Rain'},
+                    }
+                }, {
+                    $project: {
+
+                        Rain: round('$RainM', 2),
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            if(variableC=="SolarRad")
+            {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        SolarRadM: {$avg: '$SolarRad'}
+
+                    }
+                }, {
+                    $project: {
+
+                        SolarRad: round('SolarRadM', 2),
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            if(variableC=="outHum")
+            {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        outHumM: {$avg: 'outHum'}
+
+                    }
+                }, {
+                    $project: {
+
+                        outHum: round('outHumM', 2),
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            break;
+    }
 })
 
 
 app.listen(3000, function () {
-
     console.log('Example app listening on port 3000!')
 })  

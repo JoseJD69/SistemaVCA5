@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="col-12"><h1>Dashboard</h1></div>
+  <div class="row">
+    <div class="col-sm-6 tempPadding">
+      <app-chart-temperature></app-chart-temperature>
+    </div>
+    <div class="col-sm-6">
+      <app-chart-humidity></app-chart-humidity>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 margenes">
+      <app-chart-solar-rad></app-chart-solar-rad>
+    </div>
+    <app-wind-rose></app-wind-rose>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 margenes">
+      <app-chart-rain></app-chart-rain>
+    </div>
+    <div class="col-sm-6 moonpadding">
+
+      <div class="col-sm-4 optionsMoon"><h5>Fase Lunar</h5></div>
+
+      <div id="contain_moon" class="moon col-sm-4">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>

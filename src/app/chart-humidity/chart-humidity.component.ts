@@ -18,12 +18,18 @@ export class ChartHumidityComponent implements OnInit {
 
     public EditFechaH = false;
     public EditMonthH = false;
+    public EditDiaH = false;
+    SelectTime: { [key: string]: any } = {
+        option: '1'
+    };
+    Fdia: any;
+    FMes: any;
     DataTemp;
     chart;
     TempGroup = [];
 
     ngOnInit() {
-        this.newService.GetVariablesFechas().subscribe(data => {
+        this.newService.GetVariablesComponentes('02/03/18', 'Dia', Variables.Humidity).subscribe(data => {
             this.DataTemp = data;
             // this.cargarFechas(data);
             this.createbarC3_Humidity(data, Variables.Humidity);
@@ -73,27 +79,58 @@ export class ChartHumidityComponent implements OnInit {
         this.SelectTimeCurrent(value);
     }
 
+    onSelectTime() {
+        const option = this.SelectTime.option;
+        console.log(this.SelectTime.option);
+        console.log(this.Fdia);
+        console.log(this.FMes);
+        this.crearGrapics(option);
+    }
+
+    crearGrapics(option) {
+        switch (option) {
+            case 'Dia':
+                this.newService.GetVariablesComponentes(this.Fdia, option, Variables.Humidity).subscribe(data => {
+                    this.DataTemp = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_Humidity(data, Variables.Humidity);
+                });
+                break;
+            case 'Mensual':
+                this.newService.GetVariablesComponentes(this.FMes, option, Variables.Humidity).subscribe(data => {
+                    this.DataTemp = data;
+                    // this.cargarFechas(data);
+                    this.createbarC3_Humidity(data, Variables.Humidity);
+                });
+                break;
+        }
+    }
+
     SelectTimeCurrent(value) {
         switch (value) {
             case 'Lapso de tiempo':
                 this.EditFechaH = true;
                 this.EditMonthH = false;
+                this.EditDiaH = false;
                 console.log('lapso');
                 break;
-            case 'Hoy':
+            case 'Dia':
                 console.log('hoy');
                 this.EditFechaH = false;
                 this.EditMonthH = false;
+                this.EditDiaH = true;
                 break;
             case 'Mensual':
                 console.log('mensual');
                 this.EditFechaH = false;
                 this.EditMonthH = true;
+                this.EditDiaH = false;
                 break;
             case 'Anual':
                 console.log('anual');
                 this.EditFechaH = false;
                 this.EditMonthH = false;
+                this.EditDiaH = false;
                 break;
         }
     }
