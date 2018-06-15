@@ -98,7 +98,7 @@ app.get("/api/getVariablesDia", function (req, res) {
 
 });
 //principal
-app.get("/api/getVariables", function (req, res) {
+app.get("/api/getVariablesTemperatura", function (req, res) {
     var parts = url.parse(req.url, true);
     var query = parts.query;
     var opcion = req.query.tipo;
@@ -134,8 +134,32 @@ app.get("/api/getVariables", function (req, res) {
                 res.send(data);
             });
             break;
+        case 'Anual':
+            console.log(req.query.fecha);
+            var Meses = ['01', '02', '03', '04', '05', '06', '07', '09', '10', '11', '12'];
+            const promM = new Array();
+            model.aggregate([{$match: {Date: {$regex: '.*/' + Meses[0] + '/' + req.query.fecha}}}, {
+                $group: {
+                    _id: '$Date',
+                    tempOutM: {$avg: '$tempOut'},
+                    hiTempM: {$avg: '$hiTemp'},
+                    lowTempM: {$avg: '$lowTemp'}
+                }
+            }, {
+                $project: {
+
+                    tempOut: round('$tempOutM', 2),
+                    hiTemp: round('$hiTempM', 2),
+                    lowTemp: round('$lowTempM', 2)
+                }
+            }, {"$sort": {"_id": 1}}]).then(function (data) {
+                promM.push(data);
+
+            });
+
+            break;
     }
-})
+});
 
 //modificada
 app.get("/api/getVariablesComponentes", function (req, res) {
@@ -158,7 +182,7 @@ app.get("/api/getVariablesComponentes", function (req, res) {
             });
             break;
         case 'Mensual':
-            if(variableC=='Rain') {
+            if (variableC == 'Rain') {
                 model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
                     $group: {
                         _id: '$Date',
@@ -174,26 +198,78 @@ app.get("/api/getVariablesComponentes", function (req, res) {
                     res.send(data);
                 });
             }
-            if(variableC=="SolarRad")
-            {
+            if (variableC == "SolarRad") {
                 model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
                     $group: {
                         _id: '$Date',
-                        SolarRadM: {$avg: '$SolarRad'}
+                        solarRM: {$avg: '$SolarRad'},
 
                     }
                 }, {
                     $project: {
 
-                        SolarRad: round('SolarRadM', 2),
+                        SolarRad: round('$solarRM', 2)
+
                     }
                 }, {"$sort": {"_id": 1}}]).then(function (data) {
                     console.log(data);
                     res.send(data);
                 });
             }
-            if(variableC=="outHum")
-            {
+            if (variableC == "outHum") {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        outHumM: {$avg: 'outHum'}
+
+                    }
+                }, {
+                    $project: {
+
+                        outHum: round('outHumM', 2),
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            break;
+        case 'Intervalo':
+            if (variableC == 'Rain') {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        RainM: {$avg: '$Rain'},
+                    }
+                }, {
+                    $project: {
+
+                        Rain: round('$RainM', 2),
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            if (variableC == "SolarRad") {
+                model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
+                    $group: {
+                        _id: '$Date',
+                        solarRM: {$avg: '$SolarRad'},
+
+                    }
+                }, {
+                    $project: {
+
+                        SolarRad: round('$solarRM', 2)
+
+                    }
+                }, {"$sort": {"_id": 1}}]).then(function (data) {
+                    console.log(data);
+                    res.send(data);
+                });
+            }
+            if (variableC == "outHum") {
                 model.aggregate([{$match: {Date: {$regex: '.*/' + req.query.fecha}}}, {
                     $group: {
                         _id: '$Date',
@@ -212,7 +288,7 @@ app.get("/api/getVariablesComponentes", function (req, res) {
             }
             break;
     }
-})
+});
 
 
 app.listen(3000, function () {

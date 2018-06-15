@@ -1,5 +1,8 @@
-<div class="div_title col-sm-12"><h5>Humedad</h5></div>
-    <div class="optionsTemp" style="height: 70px; padding: 10px">
+<div class="row">
+<div class="div_title col-sm-8"><h5>Humedad</h5></div>
+</div>
+<div class="row">
+    <div class="optionsTemp col-sm-8" style="height: 70px; padding: 10px">
         <div class="row" style="margin-top: 10px;">
             <div class="col-sm-3">
                 <select [(ngModel)]="SelectTime.option" name="Time" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
@@ -33,7 +36,7 @@
                        class="datepicker form-control"
                        id="fechaDia">
             </div>
-            <div class="col-sm-4" [hidden]="!EditMonthH">
+            <div class="col-sm-3" [hidden]="!EditMonthH">
                 <input [(ngModel)]="FMes" placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
             </div>
             <div>
@@ -43,4 +46,15 @@
             </div>
         </div>
     </div>
-    <div id="chartHumedad"></div>
+</div>
+
+<div class="row">
+    <div style="display: block;" class="chartHumedad col-sm-8">
+        <canvas baseChart [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+                [colors]="lineChartColors"
+                [chartType]="lineChartType"></canvas>
+    </div>
+</div>

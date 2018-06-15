@@ -15,50 +15,22 @@ import {ChartSolarRadComponent} from './chart-solar-rad/chart-solar-rad.componen
 import {Routes, RouterModule} from '@angular/router';
 import {InicioComponent} from './inicio/inicio.component';
 import {CdkTableModule} from '@angular/cdk/table';
-import {
-    MatMenu,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule,
-    MatRippleModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatSlideToggleModule,
-    MatSnackBarModule,
-    MatSortModule,
-    MatStepperModule,
-    MatTableModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
-} from '@angular/material';
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ReportViewComponent } from './report-view/report-view.component';
+import { PortadaComponent } from './portada/portada.component';
+import { PruebaChartJsComponent } from './prueba-chart-js/prueba-chart-js.component';
+import { ChartsModule } from 'ng2-charts';
+import 'hammerjs';
+import 'chartjs-plugin-zoom';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/AnuarioAgroclimatico', pathMatch: 'full'},
     {path: 'AnuarioAgroclimatico', component: InicioComponent},
-    {path: 'Portada', component: InicioComponent},
-
+    {path: 'Portada', component: PortadaComponent},
+    {path: 'ReportView', component: ReportViewComponent},
+    {path: 'ChartView', component: PruebaChartJsComponent},
 ];
 
 @NgModule({
@@ -69,47 +41,18 @@ const appRoutes: Routes = [
         ChartRainComponent,
         ChartHumidityComponent,
         ChartSolarRadComponent,
-        InicioComponent
+        InicioComponent,
+        ReportViewComponent,
+        PortadaComponent,
+        PruebaChartJsComponent
     ],
     imports: [
         RouterModule.forRoot(appRoutes),
-        BrowserAnimationsModule, MatNativeDateModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
-        BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule,
+        BrowserModule, HttpClientModule, FormsModule, ReactiveFormsModule, ChartsModule
     ],
-    exports: [    // Material
-        MatAutocompleteModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatDividerModule,
-        MatExpansionModule,
-        MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSliderModule,
-        MatSlideToggleModule,
-        MatSnackBarModule,
-        MatSortModule,
-        MatStepperModule,
-        MatTableModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule],
+
     providers: [CommonService],
     bootstrap: [AppComponent]
 })

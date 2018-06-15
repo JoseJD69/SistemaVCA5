@@ -10,7 +10,7 @@
     padding: 2px 10px 0;
     text-transform: uppercase;
 }
-#chartRadiacion{
+.chartRadiacion{
     background-color: white;
     box-shadow: 3px 3px 5px #999;
     border-radius: 0px 0px 11px 11px;

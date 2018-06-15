@@ -1,46 +1,60 @@
-<div class="div_title col-sm-12"><h5>Radiacion Solar</h5></div>
-<div class="optionsTemp" style="height: 60px">
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-sm-3">
-            <select [(ngModel)]="SelectTime.option" name="Time" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
-                <option value="1" disabled="true">Seleccione</option>
-                <option value="Dia">Dia</option>
-                <option value="Mensual">Mensual</option>
-                <option value="Anual">Anual</option>
-                <option value="Lapso de tiempo">Lapso de Tiempo</option>
-            </select>
-        </div>
-        <div class="col-sm-3" [hidden]="!EditFechaSR">
+<div class="row">
+    <div class="div_title col-sm-8"><h5>Radiacion Solar</h5></div>
+</div>
+<div class="row">
+    <div class="optionsTemp col-sm-8" style="height: 60px">
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-3">
+                <select [(ngModel)]="SelectTime.option" #Time class="custom-select selectCustom"
+                        (change)="onChangeTime(Time.value)">
+                    <option value="1" disabled="true">Seleccione</option>
+                    <option value="Dia">Dia</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
+                    <option value="Intervalo">Intervalo</option>
+                </select>
+            </div>
+            <div class="col-sm-3" [hidden]="!EditFechaSR">
 
-            <input placeholder="Desde" data-toggle="tooltip" data-placement="top"
-                   title="Elija una fecha desde el año 2005 "
-                   data-date-format="dd/mm/yy"
-                   class="datepicker form-control"
-                   id="fechaIn">
-        </div>
-        <div class="col-sm-3" [hidden]="!EditFechaSR">
-            <input placeholder="Hasta" data-toggle="tooltip" data-placement="top"
-                   title="Elija una fecha hasta el año 2018 "
-                   data-date-format="dd/mm/yy"
-                   class="datepicker form-control "
-                   id="fechaFin">
+                <input placeholder="Desde" data-toggle="tooltip" data-placement="top"
+                       title="Elija una fecha desde el año 2005 "
+                       data-date-format="dd/mm/yy"
+                       class="datepicker form-control"
+                       id="fechaIn">
+            </div>
+            <div class="col-sm-3" [hidden]="!EditFechaSR">
+                <input placeholder="Hasta" data-toggle="tooltip" data-placement="top"
+                       title="Elija una fecha hasta el año 2018 "
+                       data-date-format="dd/mm/yy"
+                       class="datepicker form-control "
+                       id="fechaFin">
 
-        </div>
-        <div class="col-sm-3" [hidden]="!EditDiaSR">
-            <input [(ngModel)]="Fdia"placeholder="Dia" data-toggle="tooltip" data-placement="top"
-                   title="Elija una dia desde el año 2005"
-                   data-date-format="dd/mm/yy"
-                   class="datepicker form-control"
-                   id="fechaDia">
-        </div>
-        <div  [(ngModel)]="FMes"class="col-sm-4" [hidden]="!EditMonthSR">
-            <input placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
-                <span class=""></span> Buscar
-            </button>
+            </div>
+            <div class="col-sm-3" [hidden]="!EditDiaSR">
+                <input placeholder="Dia"
+                       data-date-format="dd/mm/yy"
+                       class="datepicker form-control"
+                       id="SolarDia">
+            </div>
+            <div class="col-sm-3" [hidden]="!EditMonthSR">
+                <input placeholder="Mes" name="startDate" id="SolarMes" class="datepickerM form-control">
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
+                    <span class=""></span> Buscar
+                </button>
+            </div>
         </div>
     </div>
 </div>
-<div id="chartRadiacion"></div>
+<div class="row">
+    <div style="display: block;" class="chartRadiacion col-sm-8">
+        <canvas baseChart [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+                [colors]="lineChartColors"
+                [chartType]="lineChartType"></canvas>
+    </div>
+</div>
+

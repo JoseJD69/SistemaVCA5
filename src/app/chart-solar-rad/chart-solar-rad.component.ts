@@ -26,15 +26,117 @@ export class ChartSolarRadComponent implements OnInit {
     DataTemp;
     Fdia: any;
     FMes: any;
+    Labels = [];
+    DataChart = [];
     chart;
     TempGroup = [];
+
+
+// configuraciones chart
+    public lineChartData = [
+        {
+            data: this.DataChart, label: 'Radiacion'
+        }
+    ];
+    public lineChartLabels: Array<any> = this.Labels;
+    public lineChartOptions: any = {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    drawOnChartArea: false
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    drawOnChartArea: false
+                }
+            }]
+        },
+        pan: {
+            enabled: true,
+            mode: 'x',
+        },
+        zoom: {
+            enabled: true,
+            mode: 'x',
+        }
+    };
+    public lineChartLegend: Boolean = true;
+    public lineChartType: String = 'line';
+
+    public lineChartColors: Array<any> = [
+        { // Azul
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(54, 162, 235,0.8)',
+            pointBackgroundColor: 'rgba(54, 162, 235,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        },
+        { // Verde
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(0,204,102,0.8)',
+            pointBackgroundColor: 'rgba(0,204,102,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        },
+        { // Rojo
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(255,26,26,0.7)',
+            pointBackgroundColor: 'rgba(255,26,26,0.7)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        }
+    ];
+
 
     ngOnInit() {
         this.newService.GetVariablesComponentes('02/03/18', 'Dia', Variables.SolarRad).subscribe(data => {
             this.DataTemp = data;
-            // this.cargarFechas(data);
-            this.createbarC3_SolarRad(data, Variables.SolarRad);
+            this.cargarFechas(data, 'Dia');
+            this.cargarData(data);
         });
+
+    }
+
+    cargarFechas(data, option) {
+        while (this.Labels.length > 0) {
+            this.Labels.pop();
+        }
+        switch (option) {
+            case 'Dia':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['Time']);
+                });
+                console.log(this.Labels);
+                break;
+            case 'Mensual':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['_id']);
+                });
+
+                break;
+            case'Intervalo':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['_id']);
+                });
+                break;
+        }
+
+    }
+
+    cargarData(data) {
+        let DataI = [];
+        this.DataChart = [];
+        data.forEach((num, index) => {
+            this.DataChart.push(data[index]['SolarRad']);
+        });
+        DataI = [{data: this.DataChart, label: 'Radiacion'}];
+        console.log(this.DataChart);
+        this.lineChartData = DataI;
 
     }
 
@@ -44,7 +146,7 @@ export class ChartSolarRadComponent implements OnInit {
             data: {
                 json: data,
                 keys: {
-                    //  x: 'Time', // it's possible to specify 'x' when category axis
+                    x: 'Time', // it's possible to specify 'x' when category axis
                     value: variableC
                 }, types: {
                     lowTemp: 'area-spline',
@@ -58,10 +160,18 @@ export class ChartSolarRadComponent implements OnInit {
                     }, type: 'spline'
 
             }, axis: {
+                x: {
+                    type: 'category',
+                    tick: {
+                        rotate: 75,
+                        multiline: false
+                    },
+                    height: 80
+                },
                 y:
-                {
-                    label:' W/m2'
-                }
+                    {
+                        label: 'W/m2'
+                    }
             },
             tooltip: {
                 format: {
@@ -93,31 +203,46 @@ export class ChartSolarRadComponent implements OnInit {
     onSelectTime() {
         const option = this.SelectTime.option;
         console.log(this.SelectTime.option);
-        console.log(this.Fdia);
-        console.log(this.FMes);
+        this.Fdia = (<HTMLInputElement>document.getElementById('SolarDia')).value;
+        this.FMes = (<HTMLInputElement>document.getElementById('SolarMes')).value;
         this.crearGrapics(option);
     }
+
     crearGrapics(option) {
         switch (option) {
             case 'Dia':
                 this.newService.GetVariablesComponentes(this.Fdia, option, Variables.SolarRad).subscribe(data => {
                     this.DataTemp = data;
-                    // this.cargarFechas(data);
-                    this.createbarC3_SolarRad(data, Variables.SolarRad);
+                    console.log(data);
+                    console.log(this.Fdia);
+                    console.log(option);
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
                 });
                 break;
             case 'Mensual':
                 this.newService.GetVariablesComponentes(this.FMes, option, Variables.SolarRad).subscribe(data => {
                     this.DataTemp = data;
-                    // this.cargarFechas(data);
-                    this.createbarC3_SolarRad(data, Variables.SolarRad);
+                    console.log(data);
+                    console.log(this.FMes);
+                    console.log(option);
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
+                });
+                break;
+            case 'Intervalo':
+                this.newService.GetVariablesComponentes(this.FMes, option, Variables.SolarRad).subscribe(data => {
+                    this.DataTemp = data;
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
                 });
                 break;
         }
     }
+
     SelectTimeCurrent(value) {
         switch (value) {
-            case 'Lapso de tiempo':
+            case 'Intervalo':
                 this.EditFechaSR = true;
                 this.EditMonthSR = false;
                 this.EditDiaSR = false;
