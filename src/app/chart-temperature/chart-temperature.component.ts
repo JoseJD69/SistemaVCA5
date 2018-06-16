@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {CommonService} from '../common.service';
-import {Variables} from '../config/config';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CommonService } from '../common.service';
+import { Variables } from '../config/config';
 import * as jspdf from 'jspdf';
 
 import * as d3 from 'd3';
 import * as c3 from 'c3';
-import {variable} from '@angular/compiler/src/output/output_ast';
-import {$} from 'protractor';
-import {forEach} from '@angular/router/src/utils/collection';
+import { variable } from '@angular/compiler/src/output/output_ast';
+import { $ } from 'protractor';
+import { forEach } from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ChartTemperatureComponent implements OnInit {
     public EditMonth = false;
     public EditDia = false;
     public EditYear = false;
-    public DataProm;
+    public DataTemp;
     public RMes = '';
     public RDia = '';
     public RAnio = '';
@@ -34,103 +34,133 @@ export class ChartTemperatureComponent implements OnInit {
     FAnio: any;
     FIntervaloInicial: any;
     FIntervaloFinal: any;
+    DataChart = [];
+    Labels = [];
     Report;
     defaultGrafica = 'spline';
 
     fechasIn = [];
 
-    chart;
+
     TempGroup = [];
 
-    constructor(private newService: CommonService, private newServiceProm: CommonService) {
+    constructor(private newService: CommonService) {
 
     }
 
+    // configuraciones chart
+    public lineChartData = [
+        {
+            data: this.DataChart, label: 'Radiacion'
+        }
+    ];
+    public lineChartLabels: Array<any> = this.Labels;
+    public lineChartOptions: any = {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    drawOnChartArea: false
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    drawOnChartArea: false
+                }
+            }]
+        },
+        pan: {
+            enabled: true,
+            mode: 'x',
+        },
+        zoom: {
+            enabled: true,
+            mode: 'x',
+        }
+    };
+    public lineChartLegend: Boolean = true;
+    public lineChartType: String = 'line';
+
+    public lineChartColors: Array<any> = [
+        { // Azul
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(54, 162, 235,0.8)',
+            pointBackgroundColor: 'rgba(54, 162, 235,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        },
+        { // Verde
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(0,204,102,0.8)',
+            pointBackgroundColor: 'rgba(0,204,102,0.8)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        },
+        { // Rojo
+            backgroundColor: 'rgba(255,255,255,0.2)',
+            borderColor: 'rgba(255,26,26,0.7)',
+            pointBackgroundColor: 'rgba(255,26,26,0.7)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255,255,255,0.2)'
+        }
+    ];
 
     ngOnInit() {
-        this.newServiceProm.GetVariablesProm('08/18').subscribe(data => {
-            this.DataProm = data;
-            this.cargarFechas(data);
-            this.createbarC3_Temperature(data, Variables.default, this.defaultGrafica);
+        this.newService.GetVariablesTemperature('02/03/17', 'Dia').subscribe(data => {
+            this.DataTemp = data;
+            this.cargarFechas(data, 'Dia');
+            this.cargarData(data);
+
         });
     }
+    cargarFechas(data, option) {
+        while (this.Labels.length > 0) {
+            this.Labels.pop();
+        }
+        switch (option) {
+            case 'Dia':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['Time']);
+                });
+                console.log(this.Labels);
+                break;
+            case 'Mensual':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['_id']);
+                });
 
-    dataChanged(event) {
-        console.log(event);
+                break;
+            case 'Intervalo':
+                data.forEach((num, index) => {
+                    this.Labels.push(data[index]['_id']);
+                });
+                break;
+        }
+
     }
 
-    cargarFechas(data) {
+    cargarData(data) {
+        let DataI = [];
+        this.DataChart = [];
         data.forEach((num, index) => {
-            this.fechasIn.push(data[index]['_id']);
+            this.DataChart.push(data[index]['tempOut']);
         });
+        DataI = [{ data: this.DataChart, label: 'Temperatura' }];
+        console.log(this.DataChart);
+        this.lineChartData = DataI;
+
     }
+
 
     changeGrafica(ev) {
         let val;
         if (ev.currentTarget.checked) {
             val = ev.target.defaultValue;
             this.defaultGrafica = val;
-            this.createbarC3_Temperature(this.DataProm, Variables.default, this.defaultGrafica);
         }
-    }
-
-    createbarC3_Temperature(data, variableC, grafica) {
-        this.chart = c3.generate({
-            bindto: '#chartTemperature',
-            data: {
-                // x: 'x',
-                json: data,
-                keys: {
-                    // x : '_id', // it's possible to specify 'x' when category axis
-                    value: variableC
-                }, types: {
-                    lowTemp: grafica,
-                    tempOut: grafica,
-                    hiTemp: grafica
-                },
-                names:
-                    {
-                        lowTemp: 'Temperatura Mimina',
-                        tempOut: 'Temperatura Media',
-                        hiTemp: 'Temperatura Maxima'
-                    }, type: 'spline'
-
-            }, axis: {
-                y: {
-                    label: 'Celsius',
-                    min: 10
-                }
-                /* x: {
-                     type: 'category',
-                     categories: this.fechasIn,
-                     tick: {
-                         rotate: 75,
-                         multiline: false
-                     },
-                     height: 80
-                 }*/
-            },
-            tooltip: {
-                format: {
-                    title: function (d) {
-                        return '' + d;
-                    },
-                    value: function (value) {
-                        return (value);
-                    },
-                },
-            },
-            zoom: {
-                enabled: true
-            },
-            bar: {
-                width: {
-                    ratio: 0.5// this makes bar width 50% of length between ticks
-                }
-            }
-        })
-        ;
-
     }
 
     onChangeTime(value) {
@@ -176,7 +206,7 @@ export class ChartTemperatureComponent implements OnInit {
         let splitted = [];
         let mes = '';
         switch (option) {
-            case'Mensual':
+            case 'Mensual':
                 splitted = this.FMes.toString().split('/', 3);
                 mes = splitted[0].toString();
                 this.RMes = this.getMonth(mes);
@@ -198,62 +228,35 @@ export class ChartTemperatureComponent implements OnInit {
 
 
     downloadPDF() {
+        this.newService.getReporte().subscribe(data => {
+            this.DataTemp = data;
+            console.log(data);
+        });
 
-        const contenido = (<HTMLInputElement>document.getElementById('contenidoM'));
-        const margins = {
-            top: 10,
-            bottom: 10,
-            left: 10,
-            width: 560
-        };
-
-        const specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            },
-            '.controls': function (element, renderer) {
-                return true;
-            }
-        };
-
-        const doc = new jspdf('l', 'pt', 'a4');
-        doc.fromHTML(contenido, margins.left, // x coord
-            margins.top,
-            {
-                // y coord
-                width: margins.width // max width of content on PDF
-            },
-            function (dispose) {
-                // dispose: object with X, Y of the last line add to the PDF
-                //          this allow the insertion of new lines after html
-                doc.save('Test.pdf');
-            },
-            margins
-        );
     }
 
     crearGrapics(option) {
         switch (option) {
             case 'Dia':
                 this.newService.GetVariablesTemperature(this.Fdia, option).subscribe(data => {
-                    this.DataProm = data;
-                    // this.cargarFechas(data);
-                    this.createbarC3_Temperature(data, Variables.default, this.defaultGrafica);
+                    this.DataTemp = data;
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
                 });
                 break;
             case 'Mensual':
                 this.newService.GetVariablesTemperature(this.FMes, option).subscribe(data => {
-                    this.DataProm = data;
-                    // this.cargarFechas(data);
-                    this.createbarC3_Temperature(data, Variables.default, this.defaultGrafica);
+                    this.DataTemp = data;
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
                 });
                 break;
             case 'Anual':
                 console.log('año');
                 this.newService.GetVariablesTemperature(this.FAnio, option).subscribe(data => {
-                    this.DataProm = data;
-                    // this.cargarFechas(data);
-                    this.createbarC3_Temperature(data, Variables.default, this.defaultGrafica);
+                    this.DataTemp = data;
+                    this.cargarFechas(data, option);
+                    this.cargarData(data);
                 });
                 break;
         }
@@ -261,7 +264,7 @@ export class ChartTemperatureComponent implements OnInit {
 
     SelectTimeCurrent(value) {
         switch (value) {
-            case 'Lapso de tiempo':
+            case 'Intervalo':
                 this.EditDia = false;
                 this.EditFecha = true;
                 this.EditMonth = false;
@@ -307,15 +310,15 @@ export class ChartTemperatureComponent implements OnInit {
         switch (val) {
             case 'tempOut':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
             case 'hiTemp':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
             case 'lowTemp':
                 this.eliminarVariable(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
         }
     }
@@ -324,15 +327,15 @@ export class ChartTemperatureComponent implements OnInit {
         switch (val) {
             case 'tempOut':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
             case 'hiTemp':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
             case 'lowTemp':
                 this.TempGroup.push(val);
-                this.createbarC3_Temperature(this.DataProm, this.TempGroup, this.defaultGrafica);
+
                 break;
         }
     }

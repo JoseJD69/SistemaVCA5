@@ -1,5 +1,7 @@
 <div class="row">
-<div class="div_title col-sm-8"><h5>Humedad</h5></div>
+    <div class="div_title col-sm-8">
+        <h5>Humedad</h5>
+    </div>
 </div>
 <div class="row">
     <div class="optionsTemp col-sm-8" style="height: 70px; padding: 10px">
@@ -15,29 +17,20 @@
             </div>
             <div class="col-sm-3" [hidden]="!EditFechaH">
 
-                <input placeholder="Desde" data-toggle="tooltip" data-placement="top"
-                       title="Elija una fecha desde el año 2005 "
-                       data-date-format="dd/mm/yy"
-                       class="datepicker form-control"
-                       id="fechaIn">
+                <input placeholder="Desde" data-toggle="tooltip" data-placement="top" title="Elija una fecha desde el año 2005 " data-date-format="dd/mm/yy"
+                    class="datepicker form-control" id="fechaInicioHum">
             </div>
             <div class="col-sm-3" [hidden]="!EditFechaH">
-                <input placeholder="Hasta" data-toggle="tooltip" data-placement="top"
-                       title="Elija una fecha hasta el año 2018 "
-                       data-date-format="dd/mm/yy"
-                       class="datepicker form-control "
-                       id="fechaFin">
+                <input placeholder="Hasta" data-toggle="tooltip" data-placement="top" title="Elija una fecha hasta el año 2018 " data-date-format="dd/mm/yy"
+                    class="datepicker form-control " id="fechaFinHum">
 
             </div>
             <div class="col-sm-3" [hidden]="!EditDiaH">
-                <input [(ngModel)]="Fdia" placeholder="Dia" data-toggle="tooltip" data-placement="top"
-                       title="Elija una dia desde el año 2005"
-                       data-date-format="dd/mm/yy"
-                       class="datepicker form-control"
-                       id="fechaDia">
+                <input [(ngModel)]="Fdia" placeholder="Dia" data-toggle="tooltip" data-placement="top" title="Elija una dia desde el año 2005"
+                    data-date-format="dd/mm/yy" class="datepicker form-control" id="DiaHum">
             </div>
             <div class="col-sm-3" [hidden]="!EditMonthH">
-                <input [(ngModel)]="FMes" placeholder="Mes" name="startDate" id="startDate" class="datepickerM form-control">
+                <input placeholder="Mes" name="startDate" id="MesHum" class="datepickerM form-control">
             </div>
             <div>
                 <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
@@ -47,14 +40,9 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div style="display: block;" class="chartHumedad col-sm-8">
-        <canvas baseChart [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="lineChartLegend"
-                [colors]="lineChartColors"
-                [chartType]="lineChartType"></canvas>
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+            [colors]="lineChartColors" [chartType]="lineChartType"></canvas>
     </div>
 </div>

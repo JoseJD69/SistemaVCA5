@@ -47,7 +47,11 @@ export class CommonService {
         return this.http.get('http://localhost:3000/api/getVariablesDia', {params: httpParams});
     }
 
-    deleteProducto(id) {
-        return this.http.post('http://localhost:3000/api/deleteProducto/', {'id': id});
+    getReporte()
+    {
+
+        //C:\xampp\htdocs\SistemaVCA5\src\assets\tcpdf\examples\example_001.php
+        return this.http.post('http://localhost:8050/SistemaVCA5/src/assets/tcpdf/examples/example_001.php',{});
     }
+
 }

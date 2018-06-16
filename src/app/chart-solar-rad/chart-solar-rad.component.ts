@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonService} from '../common.service';
-import {Variables} from '../config/config';
-import {AppComponent} from '../app.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../common.service';
+import { Variables } from '../config/config';
+import { AppComponent } from '../app.component';
 
 import * as d3 from 'd3';
 import * as c3 from 'c3';
@@ -32,7 +32,7 @@ export class ChartSolarRadComponent implements OnInit {
     TempGroup = [];
 
 
-// configuraciones chart
+    // configuraciones chart
     public lineChartData = [
         {
             data: this.DataChart, label: 'Radiacion'
@@ -119,7 +119,7 @@ export class ChartSolarRadComponent implements OnInit {
                 });
 
                 break;
-            case'Intervalo':
+            case 'Intervalo':
                 data.forEach((num, index) => {
                     this.Labels.push(data[index]['_id']);
                 });
@@ -134,68 +134,12 @@ export class ChartSolarRadComponent implements OnInit {
         data.forEach((num, index) => {
             this.DataChart.push(data[index]['SolarRad']);
         });
-        DataI = [{data: this.DataChart, label: 'Radiacion'}];
+        DataI = [{ data: this.DataChart, label: 'Radiacion' }];
         console.log(this.DataChart);
         this.lineChartData = DataI;
 
     }
-
-    createbarC3_SolarRad(data, variableC) {
-        this.chart = c3.generate({
-            bindto: '#chartRadiacion',
-            data: {
-                json: data,
-                keys: {
-                    x: 'Time', // it's possible to specify 'x' when category axis
-                    value: variableC
-                }, types: {
-                    lowTemp: 'area-spline',
-                    tempOut: 'area-spline',
-                    hiTemp: 'area-spline'
-                    // 'line', 'spline', 'step', 'area', 'area-step' are also available to stack
-                },
-                names:
-                    {
-                        SolarRad: 'Radiacion',
-                    }, type: 'spline'
-
-            }, axis: {
-                x: {
-                    type: 'category',
-                    tick: {
-                        rotate: 75,
-                        multiline: false
-                    },
-                    height: 80
-                },
-                y:
-                    {
-                        label: 'W/m2'
-                    }
-            },
-            tooltip: {
-                format: {
-                    title: function (d) {
-                        return '' + d;
-                    },
-                    value: function (value) {
-                        return (value);
-                    },
-                },
-            },
-            zoom: {
-                enabled: true
-            },
-            bar: {
-                width: {
-                    ratio: 0.5// this makes bar width 50% of length between ticks
-                }
-            }
-        })
-        ;
-
-    }
-
+    
     onChangeTime(value) {
         this.SelectTimeCurrent(value);
     }

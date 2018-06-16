@@ -1,103 +1,108 @@
-<div class="div_title">
-    <div class=""><h5>Temperatura</h5>
-    </div>
-
-    <div class="dropdown" style="float: right; margin-top: -35px;">
-        <button style="width: 33px; height: 30px" class="btn dropdown-toggle" type="button" id="dropdownMenu1"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        </button>
-        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-            <li class="dropdown-item"><a (click)="downloadPDF()">Reporte</a></li>
-            <li class="dropdown-divider"></li>
-            <li class="dropdown-submenu">
-                <a class="dropdown-item" tabindex="-1">Graficas</a>
-                <ul class="dropdown-menu">
-                    <li class="dropdown-item"><input type="checkbox" id="grafica1" value="bar"
-                                                     onclick="CheckGroup(this)"
-                                                     class="custom-checkbox"
-                                                     (click)="changeGrafica($event)"><a> barras </a></li>
-                    <li class="dropdown-item"><input type="checkbox" id="grafica2" value="line"
-                                                     onclick="CheckGroup(this)"
-                                                     class="custom-checkbox"
-                                                     (click)="changeGrafica($event)"><a> lineas </a></li>
-                    <li class="dropdown-item"><input type="checkbox" id="grafica3" value="area-spline"
-                                                     onclick="CheckGroup(this)"
-                                                     class="custom-checkbox"
-                                                     (click)="changeGrafica($event)"><a> histograma </a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-</div>
-
-<div class="optionsTemp" style="height: 70px">
-    <div class="row">
-        <div class="col-sm-3 custom-checkbox" style="margin-left: 15px;">
-            <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck1"
-                   value="tempOut" (click)="onChangeVal($event)" onchange="exportImageAsPNG()">
-            <label class="custom-control-label" for="customCheck1">Temperatura Media</label>
-        </div>
-        <div class="col-sm-3 custom-checkbox">
-            <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck2"
-                   value="lowTemp" (click)="onChangeVal($event)" onchange="exportImageAsPNG()">
-            <label class="custom-control-label" for="customCheck2">Temperatura Minima</label>
-        </div>
-        <div class="col-sm-3 custom-checkbox">
-            <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck3"
-                   value="hiTemp" (click)="onChangeVal($event)" onchange="exportImageAsPNG()">
-            <label class="custom-control-label" for="customCheck3">Temperatura Maxima</label>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 10px;">
-        <div class="col-sm-2">
-            <select [(ngModel)]="SelectTime.option" #Time class="custom-select selectCustom"
-                    (change)="onChangeTime(Time.value)">
-                <option value="1" disabled="true">Seleccione</option>
-                <option value="Dia">Dia</option>
-                <option value="Mensual">Mensual</option>
-                <option value="Anual">Anual</option>
-                <option value="Intervalo">Intervalo</option>
-            </select>
-        </div>
-        <div class="col-sm-2" [hidden]="!EditFecha">
-            <input placeholder="Desde" data-toggle="tooltip" data-placement="top"
-                   title="Elija una fecha desde el año 2005 "
-                   data-date-format="dd/mm/yy"
-                   class="datepicker form-control"
-                   id="fechaInicio">
+<div class="row">
+    <div class="div_title col-sm-8">
+        <div class="">
+            <h5>Temperatura</h5>
         </div>
 
-        <div class="col-sm-2" [hidden]="!EditFecha">
-            <input placeholder="Hasta" data-toggle="tooltip" data-placement="top"
-                   title="Elija una fecha hasta el año 2018 "
-                   data-date-format="dd/mm/yy"
-                   class="datepicker form-control "
-                   id="fechaFin">
-
-        </div>
-        <div class="col-sm-2" [hidden]="!EditDia">
-            <input type="text" id="datepicker" placeholder="Dia" data-toggle="tooltip"
-                   data-placement="top"
-                   data-date-format="dd/mm/yy"
-                   class="form-control" (ngModelChange)="dataChanged($event)">
-        </div>
-        <div class="col-sm-2" [hidden]="!EditMonth">
-            <input placeholder="Mes" name="startDate" class="form-control" id="datepickerM">
-        </div>
-        <div class="col-sm-2" [hidden]="!EditYear">
-            <input placeholder="Año" name="startDate" class="form-control" id="datepickerA">
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
-                <span class=""></span> Buscar
+        <div class="dropdown" style="float: right; margin-top: -35px;">
+            <button style="width: 33px; height: 30px" class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
             </button>
-
-
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                <li class="dropdown-item">
+                    <a (click)="downloadPDF()">Reporte</a>
+                </li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item" tabindex="-1">Graficas</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <input type="checkbox" id="grafica1" value="bar" onclick="CheckGroup(this)" class="custom-checkbox" (click)="changeGrafica($event)">
+                            <a> barras </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <input type="checkbox" id="grafica2" value="line" onclick="CheckGroup(this)" class="custom-checkbox" (click)="changeGrafica($event)">
+                            <a> lineas </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <input type="checkbox" id="grafica3" value="area-spline" onclick="CheckGroup(this)" class="custom-checkbox" (click)="changeGrafica($event)">
+                            <a> histograma </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
+
     </div>
 </div>
-<div id="chartTemperature"></div>
+
+
+<div class="row">
+    <div class="optionsTemp col-sm-8" style="height: 70px">
+        <div class="row">
+            <div class="col-sm-3 custom-checkbox" style="margin-left: 15px;">
+                <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck1" value="tempOut" (click)="onChangeVal($event)"
+                    onchange="exportImageAsPNG()">
+                <label class="custom-control-label" for="customCheck1">Temperatura Media</label>
+            </div>
+            <div class="col-sm-3 custom-checkbox">
+                <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck2" value="lowTemp" (click)="onChangeVal($event)"
+                    onchange="exportImageAsPNG()">
+                <label class="custom-control-label" for="customCheck2">Temperatura Minima</label>
+            </div>
+            <div class="col-sm-3 custom-checkbox">
+                <input type="checkbox" class="custom-control-input custom-control-inline" id="customCheck3" value="hiTemp" (click)="onChangeVal($event)"
+                    onchange="exportImageAsPNG()">
+                <label class="custom-control-label" for="customCheck3">Temperatura Maxima</label>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-sm-3">
+                <select [(ngModel)]="SelectTime.option" #Time class="custom-select selectCustom" (change)="onChangeTime(Time.value)">
+                    <option value="1" disabled="true">Seleccione</option>
+                    <option value="Dia">Dia</option>
+                    <option value="Mensual">Mensual</option>
+                    <option value="Anual">Anual</option>
+                    <option value="Intervalo">Intervalo</option>
+                </select>
+            </div>
+            <div class="col-sm-3" [hidden]="!EditFecha">
+                <input placeholder="Desde" data-toggle="tooltip" data-placement="top" title="Elija una fecha desde el año 2005 " data-date-format="dd/mm/yy"
+                    class="datepicker form-control" id="fechaInicio">
+            </div>
+
+            <div class="col-sm-3" [hidden]="!EditFecha">
+                <input placeholder="Hasta" data-toggle="tooltip" data-placement="top" title="Elija una fecha hasta el año 2018 " data-date-format="dd/mm/yy"
+                    class="datepicker form-control " id="fechaFin">
+
+            </div>
+            <div class="col-sm-3" [hidden]="!EditDia">
+                <input type="text" id="datepicker" placeholder="Dia" data-toggle="tooltip" data-placement="top" data-date-format="dd/mm/yy"
+                    class="form-control" (ngModelChange)="dataChanged($event)">
+            </div>
+            <div class="col-sm-3" [hidden]="!EditMonth">
+                <input placeholder="Mes" name="startDate" class="form-control datepickerM" id="datepickerM">
+            </div>
+            <div class="col-sm-3" [hidden]="!EditYear">
+                <input placeholder="Año" name="startDate" class="form-control" id="datepickerA">
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-sm" (click)="onSelectTime()">
+                    <span class=""></span> Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div style="display: block;" class="chartTemperature col-sm-8">
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend"
+            [colors]="lineChartColors" [chartType]="lineChartType"></canvas>
+    </div>
+</div>
+<!-- reporte  -->
 <div id="contenidoM" style="">
     <div class="row">
         <div class="col-xs-4">
@@ -113,11 +118,16 @@
     <div class="row">
         <div class="col-xs-6">
             <address>
-                <strong>Año:</strong>{{RAnio}}<br>
-                <strong>Mes:</strong> {{RMes}}<br>
-                <strong>Latitud:</strong>78°06'24"W<br>
-                <strong>Longitud:</strong>0° 21' 01 "N <br>
-                <strong>Elevacion:</strong>2221 msnm <br>
+                <strong>Año:</strong>{{RAnio}}
+                <br>
+                <strong>Mes:</strong> {{RMes}}
+                <br>
+                <strong>Latitud:</strong>78°06'24"W
+                <br>
+                <strong>Longitud:</strong>0° 21' 01 "N
+                <br>
+                <strong>Elevacion:</strong>2221 msnm
+                <br>
             </address>
         </div>
     </div>
@@ -128,23 +138,31 @@
                     <div class="table-responsive">
                         <table style="font-size: x-small" cellspacing="5" cellpadding="5">
                             <thead>
-                            <tr>
-                                <td class="text-center"><strong>Fecha</strong></td>
-                                <td class="text-center"><strong>Temperatura</strong></td>
-                                <td class="text-center"><strong>Temperatura Baja</strong></td>
-                                <td class="text-center"><strong>Temperatura Maxima</strong></td>
+                                <tr>
+                                    <td class="text-center">
+                                        <strong>Fecha</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Temperatura</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Temperatura Baja</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <strong>Temperatura Maxima</strong>
+                                    </td>
 
-                            </tr>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let obj of DataProm let ind = index">
+                                <tr *ngFor="let obj of DataProm let ind = index">
 
-                                <td>{{obj._id}}</td>
-                                <td>{{obj.tempOut}}</td>
-                                <td>{{obj.lowTemp}}</td>
-                                <td>{{obj.hiTemp}}</td>
+                                    <td>{{obj._id}}</td>
+                                    <td>{{obj.tempOut}}</td>
+                                    <td>{{obj.lowTemp}}</td>
+                                    <td>{{obj.hiTemp}}</td>
 
-                            </tr>
+                                </tr>
                             </tbody>
                         </table>
 
